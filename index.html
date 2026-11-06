@@ -6,59 +6,128 @@
 <title>ClientSnap has closed</title>
 <meta name="description" content="ClientSnap shut down on November 6, 2026. Thank you to every trainer who used it.">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0b">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <style>
+  /* Theme tokens copied from the ClientSnap landing site (apps/landing/src/app/globals.css). */
   :root {
-    --bg: #fafaf9; --fg: #1c1917; --muted: #57534e; --rule: #e7e5e4; --accent: #0f766e;
-    color-scheme: light dark;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #1c1917; --fg: #f5f5f4; --muted: #a8a29e; --rule: #44403c; --accent: #5eead4; }
+    --background: #0a0a0b;
+    --foreground: #fafafa;
+    --primary: #f97316;
+    --accent: #a855f7;
+    --muted: #a1a1aa;
+    --subtle: #71717a;
+    --border: rgba(255, 255, 255, 0.1);
+    color-scheme: dark;
   }
   * { box-sizing: border-box; }
+  html { background: var(--background); }
   body {
-    margin: 0; min-height: 100vh; display: grid; place-items: center;
-    background: var(--bg); color: var(--fg);
-    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    padding: 48px 20px;
+    margin: 0; min-height: 100vh;
+    background: var(--background); color: var(--foreground);
+    font: 16px/1.65 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-  main { max-width: 34rem; width: 100%; }
-  .mark { font-weight: 700; letter-spacing: -0.01em; color: var(--accent); margin: 0 0 32px; }
-  h1 { font-size: 1.75rem; line-height: 1.25; letter-spacing: -0.02em; margin: 0 0 16px; }
-  p { margin: 0 0 14px; color: var(--muted); }
-  p strong { color: var(--fg); font-weight: 600; }
-  hr { border: 0; border-top: 1px solid var(--rule); margin: 36px 0; }
-  h2 { font-size: 1.1rem; margin: 0 0 12px; }
-  footer { margin-top: 40px; font-size: 14px; color: var(--muted); }
+  ::selection { background-color: var(--primary); color: #fff; }
+
+  .hero-gradient {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(249, 115, 22, 0.3), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(168, 85, 247, 0.2), transparent),
+                radial-gradient(ellipse 50% 30% at 20% 80%, rgba(249, 115, 22, 0.15), transparent);
+  }
+
+  main { max-width: 40rem; margin: 0 auto; padding: 56px 20px 64px; }
+
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 56px; }
+  .logo {
+    width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--primary), #9333ea);
+  }
+  .logo svg { width: 20px; height: 20px; }
+
+  .badge {
+    display: inline-block; font-size: 13px; font-weight: 500; color: #fdba74;
+    padding: 6px 12px; border-radius: 999px; margin-bottom: 20px;
+    background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.3);
+  }
+  h1 {
+    font-size: clamp(2rem, 6vw, 3rem); line-height: 1.1; letter-spacing: -0.03em;
+    font-weight: 800; margin: 0 0 20px;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .lead { font-size: 1.125rem; color: var(--muted); margin: 0 0 40px; }
+  .lead strong { color: var(--foreground); font-weight: 600; }
+
+  .glass {
+    background: rgba(24, 24, 27, 0.7);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px; margin-bottom: 16px;
+  }
+  .glass h2 { font-size: 1.05rem; font-weight: 600; margin: 0 0 10px; }
+  .glass p { margin: 0 0 10px; color: var(--muted); }
+  .glass p:last-child { margin-bottom: 0; }
+  .glass strong { color: var(--foreground); font-weight: 600; }
+  .lang {
+    float: right; font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+    color: var(--subtle); margin-left: 12px;
+  }
+
+  footer {
+    margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 14px; color: var(--subtle);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fade { opacity: 0; animation: fade-in-up 0.6s ease-out forwards; }
+    .d1 { animation-delay: 100ms; } .d2 { animation-delay: 200ms; } .d3 { animation-delay: 300ms; }
+    @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  }
 </style>
 </head>
 <body>
+<div class="hero-gradient" aria-hidden="true"></div>
 <main>
-  <p class="mark">ClientSnap</p>
+  <div class="brand">
+    <span class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
+      </svg>
+    </span>
+    ClientSnap
+  </div>
 
-  <h1>ClientSnap has closed. Thank you.</h1>
-  <p>ClientSnap shut down on <strong>November 6, 2026</strong>, after almost a year as a free beta.</p>
-  <p>Thank you to every trainer who tried it, logged sessions with it, and sent feedback. Building a simple tool for personal trainers was a joy, but not enough people used it regularly to keep it running.</p>
-  <p>The app is no longer available, and new accounts can't be created.</p>
+  <div class="fade">
+    <span class="badge">Closed on November 6, 2026</span>
+    <h1>ClientSnap has closed. <span class="gradient-text">Thank you.</span></h1>
+    <p class="lead">Thank you to every trainer who tried it, logged sessions with it, and sent feedback. Building a simple tool for personal trainers was a joy, but not enough people used it regularly to keep it running. <strong>The app is no longer available, and new accounts can't be created.</strong></p>
+  </div>
 
-  <hr>
-
-  <section lang="es">
+  <section class="glass fade d1" lang="es">
+    <span class="lang">ES</span>
     <h2>ClientSnap ha cerrado. Gracias.</h2>
     <p>ClientSnap cerró el <strong>6 de noviembre de 2026</strong>, después de casi un año como beta gratuita.</p>
     <p>Gracias a todos los entrenadores que lo probaron, registraron sesiones y compartieron sus comentarios. Crear una herramienta sencilla para entrenadores personales fue un placer, pero no hubo suficientes usuarios constantes para mantenerla en funcionamiento.</p>
     <p>La aplicación ya no está disponible y no se pueden crear cuentas nuevas.</p>
   </section>
 
-  <hr>
-
-  <section lang="pt">
+  <section class="glass fade d2" lang="pt">
+    <span class="lang">PT</span>
     <h2>O ClientSnap foi encerrado. Obrigado.</h2>
     <p>O ClientSnap foi encerrado em <strong>6 de novembro de 2026</strong>, depois de quase um ano como beta gratuito.</p>
     <p>Obrigado a todos os treinadores que experimentaram, registraram sessões e enviaram sugestões. Criar uma ferramenta simples para personal trainers foi um prazer, mas não houve usuários frequentes suficientes para mantê-la funcionando.</p>
     <p>O aplicativo não está mais disponível e não é possível criar novas contas.</p>
   </section>
 
-  <footer>— Noel, the developer behind ClientSnap</footer>
+  <footer class="fade d3">— Noel, the developer behind ClientSnap</footer>
 </main>
 </body>
 </html>
